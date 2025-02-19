@@ -1,0 +1,11 @@
+# IntelliJ
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# Mac
+.DS_Store
+
+.vscode/
+.vscode/settings.json
