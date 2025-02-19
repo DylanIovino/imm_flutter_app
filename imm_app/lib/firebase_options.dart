@@ -71,4 +71,5 @@ class DefaultFirebaseOptions {
     storageBucket: 'imm-app-6cc44.firebasestorage.app',
     iosBundleId: 'com.example.immApp',
   );
+
 }
