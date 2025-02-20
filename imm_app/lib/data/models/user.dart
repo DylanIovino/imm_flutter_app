@@ -10,16 +10,16 @@ class User {
   static String get subCollectionName => 'bloodPressureRecords';
 
 
-  final String? id;
-  final String email;
+  final String id;
+  final String? email;
   final String? name;
   // height and weight for BMI calculation
   final double? heightInches;
   final double? weightLbs;
 
   User({
-    this.id,
-    required this.email,
+    required this.id,
+    this.email,
     this.name,
     this.heightInches,
     this.weightLbs,
@@ -53,8 +53,8 @@ class User {
 
   factory User.fromMap(Map<String, dynamic> map) {
     return User(
-      id: map['id'] != null ? map['id'] as String : null,
-      email: map['email'] as String,
+      id: map['id'] as String, //TODO: catch error here in case of null
+      email: map['email'] != null ? map['email'] as String : null,
       name: map['name'] != null ? map['name'] as String : null,
       heightInches: map['height'] != null ? map['height'] as double : null,
       weightLbs: map['weight_lbs'] != null ? map['weight_lbs'] as double : null,
@@ -63,6 +63,23 @@ class User {
 
   factory User.fromDataWithId(DataWithId dataWithId) {
     return User.fromMap(dataWithId.toMap());
+  }
+
+  static Map<String, dynamic> createUpdateMap({
+    String? email,
+    String? name,
+    double? heightInches,
+    double? weightLbs,
+  }) {
+    final Map<String, dynamic> updateMap = {};
+
+    // Only add fields to the map if they are not null
+    if (email != null) updateMap['email'] = email;
+    if (name != null) updateMap['name'] = name;
+    if (heightInches != null) updateMap['height'] = heightInches;
+    if (weightLbs != null) updateMap['weight_lbs'] = weightLbs;
+
+    return updateMap;
   }
 
   String toJson() => json.encode(toMap());

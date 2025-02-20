@@ -36,26 +36,17 @@ class BloodPressureRecordDataService {
     return BloodPressureRecord.fromDataWithId(recordMap);
   }
 
-  Future<BloodPressureRecord?> updateBloodPressureRecord(String userId, BloodPressureRecord currentRecord, {DateTime? timestamp, int? systolic, int? diastolic}) async {
-    if (currentRecord.id == null) {
-      debugPrint('BloodPressureRecordDataService: Failed to update blood pressure record');
-      return null;
-    }
-    
-    final record = currentRecord.copyWith(
-      date: timestamp,
-      systolic: systolic,
-      diastolic: diastolic,
-    );
+  Future<bool> updateBloodPressureRecord(String userId, String recordId, {DateTime? timestamp, int? systolic, int? diastolic}) async {
+    final updateMap = BloodPressureRecord.createUpdateMap(timestamp: timestamp, systolic: systolic, diastolic: diastolic);
 
-    final success = await _firestoreRepository.updateSubcollectionDoc(User.collectionName, userId, BloodPressureRecord.collectionName, record.id!, record.toMap());
+    final success = await _firestoreRepository.updateSubcollectionDoc(User.collectionName, userId, BloodPressureRecord.collectionName, recordId, updateMap);
 
     if (!success) {
       debugPrint('BloodPressureRecordDataService: Failed to update blood pressure record');
-      return null;
+      return false;
     }
 
-    return record;
+    return true;
   }
 
   Future<bool> deleteBloodPressureRecord(String userId, String recordId) async {

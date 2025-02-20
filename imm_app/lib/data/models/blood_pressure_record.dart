@@ -54,6 +54,25 @@ class BloodPressureRecord {
   factory BloodPressureRecord.fromDataWithId(DataWithId dataWithId) {
     return BloodPressureRecord.fromMap(dataWithId.toMap());
   }
+
+  static Map<String, dynamic> createUpdateMap({
+    DateTime? timestamp,
+    int? systolic,
+    int? diastolic,
+  }) {
+    final Map<String, dynamic> updateMap = {};
+    if (timestamp != null) {
+      updateMap['timestamp'] = timestamp;
+    }
+    if (systolic != null) {
+      updateMap['systolic'] = systolic;
+    }
+    if (diastolic != null) {
+      updateMap['diastolic'] = diastolic;
+    }
+    return updateMap;
+  }
+  
   String toJson() => json.encode(toMap());
 
   factory BloodPressureRecord.fromJson(String source) => BloodPressureRecord.fromMap(json.decode(source) as Map<String, dynamic>);

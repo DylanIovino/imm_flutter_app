@@ -1,22 +1,25 @@
 import 'package:flutter/foundation.dart';
+import 'package:imm_app/data/models/data_with_id.dart';
 import 'package:imm_app/data/repositories/firestore_repository.dart';
 import 'package:imm_app/data/models/user.dart';
 
-class UserDataService {
+class UserDataService extends ChangeNotifier {
 
   final FirestoreRepository _firestoreRepository;
 
   UserDataService(this._firestoreRepository);
 
+  /// creates a user and returns the user. Note: users should be created with an ID already
   Future<User?> createUser(User user) async {
-    final id = await _firestoreRepository.create(User.collectionName, user.toMap());
+    final newId = await _firestoreRepository.createWithId(User.collectionName, user.id,  user.toMap());
 
-    if (id == null) {
+    if (newId == null) {
       debugPrint('UserDataService: Failed to create user');
       return null;
     }
 
-    return user.copyWith(id: id);
+    notifyListeners();
+    return user;
   }
 
   Future<User?> getUser(String id) async {
@@ -41,45 +44,31 @@ class UserDataService {
     return userList.map((dataWithId) => User.fromDataWithId(dataWithId)).toList();
   }
 
-  Future<User?> updateUserById(User currentUser, {double? height_inches, double? weight_lbs}) async {
-    if (currentUser.id == null) {
-      debugPrint('UserDataService: Failed to update user');
-      return null;
-    }
-
-    final user = currentUser.copyWith(
-      heightInches: height_inches,
-      weightLbs: weight_lbs,
-    );
-
-    final success = await _firestoreRepository.update(User.collectionName, user.id!, user.toMap());
+  /// updates a user and returns the user on success
+  /// Should take in a modified version of the current user with the ID desired to update
+  Future<bool> updateUser(String id, {String? email, String? name, double? weightLbs, double? heightInches}) async {
+    final updateMap = User.createUpdateMap(email: email, name: name, weightLbs: weightLbs, heightInches: heightInches);
+    final success = await _firestoreRepository.update(User.collectionName, id, updateMap);
 
     if (!success) {
       debugPrint('UserDataService: Failed to update user');
-      return null;
+      return false;
     }
 
-    return user;
-  }
-
-  Future<User?> updateUserByEmail(User user) async {
-    if (user.id == null) {
-      debugPrint('UserDataService: Failed to update user');
-      return null;
-    }
-
-    final success = await _firestoreRepository.update(User.collectionName, user.id!, user.toMap());
-
-    if (!success) {
-      debugPrint('UserDataService: Failed to update user');
-      return null;
-    }
-
-    return user;
+    notifyListeners();
+    return true;
   }
 
   Future<bool> deleteUser(String id) async {
-    return _firestoreRepository.delete(User.collectionName, id);
+    final success = await _firestoreRepository.delete(User.collectionName, id);
+
+    if (!success) {
+      debugPrint('UserDataService: Failed to delete user');
+      return false;
+    }
+
+    notifyListeners();
+    return success;
   }
 
 }
