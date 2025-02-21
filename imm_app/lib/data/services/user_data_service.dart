@@ -1,5 +1,4 @@
 import 'package:flutter/foundation.dart';
-import 'package:imm_app/data/models/data_with_id.dart';
 import 'package:imm_app/data/repositories/firestore_repository.dart';
 import 'package:imm_app/data/models/user.dart';
 

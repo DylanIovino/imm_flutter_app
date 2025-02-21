@@ -21,13 +21,13 @@ class BloodPressureRecord {
 
   BloodPressureRecord copyWith({
     String? id,
-    DateTime? date,
+    DateTime? tiemstamp,
     int? systolic,
     int? diastolic,
   }) {
     return BloodPressureRecord(
       id: id ?? this.id,
-      timestamp: date ?? this.timestamp,
+      timestamp: tiemstamp ?? this.timestamp,
       systolic: systolic ?? this.systolic,
       diastolic: diastolic ?? this.diastolic,
     );

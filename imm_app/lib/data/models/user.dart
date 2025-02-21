@@ -105,7 +105,7 @@ class User {
 
   @override
   int get hashCode {
-    return (id?.hashCode ?? 0) ^
+    return id.hashCode ^
       email.hashCode ^
       (name?.hashCode ?? 0) ^
       (heightInches?.hashCode ?? 0) ^
