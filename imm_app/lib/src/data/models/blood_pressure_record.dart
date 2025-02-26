@@ -1,7 +1,7 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:imm_app/data/models/data_with_id.dart';
+import 'package:imm_app/src/data/models/data_with_id.dart';
 import 'package:imm_app/util/time_utils.dart';
 
 

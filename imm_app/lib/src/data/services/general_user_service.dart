@@ -1,11 +1,11 @@
 import 'package:flutter/foundation.dart';
 
-import 'package:imm_app/data/services/user_data_service.dart';
+import 'package:imm_app/src/data/services/user_data_service.dart';
 
 import 'package:imm_app/util/user_type.dart';
 import 'package:imm_app/util/pair.dart';
 
-import 'package:imm_app/data/models/user.dart';
+import 'package:imm_app/src/data/models/user.dart';
 
 
 

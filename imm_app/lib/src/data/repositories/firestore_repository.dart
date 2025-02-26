@@ -1,4 +1,4 @@
-import 'package:imm_app/data/models/data_with_id.dart';
+import 'package:imm_app/src/data/models/data_with_id.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 

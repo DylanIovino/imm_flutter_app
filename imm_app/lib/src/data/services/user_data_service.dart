@@ -1,6 +1,6 @@
 import 'package:flutter/foundation.dart';
-import 'package:imm_app/data/repositories/firestore_repository.dart';
-import 'package:imm_app/data/models/user.dart';
+import 'package:imm_app/src/data/repositories/firestore_repository.dart';
+import 'package:imm_app/src/data/models/user.dart';
 
 class UserDataService extends ChangeNotifier {
 

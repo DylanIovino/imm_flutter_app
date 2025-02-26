@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 
-import 'package:imm_app/auth/authentication_service.dart';
+import 'package:imm_app/src/auth/authentication_service.dart';
 
 import 'package:imm_app/util/pair.dart';
 import 'package:imm_app/util/user_type.dart';
 
-import 'package:imm_app/data/models/user.dart';
+import 'package:imm_app/src/data/models/user.dart';
 
-import 'package:imm_app/data/services/user_data_service.dart';
-import 'package:imm_app/data/services/general_user_service.dart';
+import 'package:imm_app/src/data/services/user_data_service.dart';
+import 'package:imm_app/src/data/services/general_user_service.dart';
 
 
 class UserModelService extends ChangeNotifier {
@@ -85,7 +85,7 @@ class UserModelService extends ChangeNotifier {
               final success = await _userDataService.updateUser(
                     _authenticationService.uid!,
                     email: _authenticationService.userEmail,
-                    name: _authenticationService.userName);
+                    name: _authenticationService.u serName);
 
               if (success) {
                 setUserUser(_user!.copyWith(email: _authenticationService.userEmail, name: _authenticationService.userName));
