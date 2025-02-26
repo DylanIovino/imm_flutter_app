@@ -4,14 +4,21 @@ import 'package:imm_app/src/data/models/user.dart';
 import 'package:imm_app/src/data/repositories/firestore_repository.dart';
 
 
-class BloodPressureRecordDataService {
+class BloodPressureRecordDataService extends ChangeNotifier {
   final FirestoreRepository _firestoreRepository;
 
   BloodPressureRecordDataService(this._firestoreRepository);
-
+  
   Future<BloodPressureRecord?> createBloodPressureRecordFromData(String userId, DateTime time, int systolic, int diastolic) async {
     final record = BloodPressureRecord(timestamp: time, systolic: systolic, diastolic: diastolic);
-    return createBloodPressureRecord(userId, record);
+    final newRecord = createBloodPressureRecord(userId, record);
+
+    if (newRecord == null) {
+      debugPrint('BloodPressureRecordDataService: Failed to create blood pressure record from data');
+      return null;
+    }
+
+    return newRecord;
   }
 
   Future<BloodPressureRecord?> createBloodPressureRecord(String userId, BloodPressureRecord record) async {    
@@ -22,6 +29,7 @@ class BloodPressureRecordDataService {
       return null;
     }
 
+    notifyListeners();
     return record.copyWith(id: id);
   }
 
@@ -46,6 +54,7 @@ class BloodPressureRecordDataService {
       return false;
     }
 
+    notifyListeners();
     return true;
   }
 
@@ -56,6 +65,7 @@ class BloodPressureRecordDataService {
       debugPrint('BloodPressureRecordDataService: Failed to delete blood pressure record');
     }
 
+    notifyListeners();
     return success;
   }
 }

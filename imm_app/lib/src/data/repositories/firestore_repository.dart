@@ -8,9 +8,9 @@ import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
 class FirestoreRepository {
-  static final database = FirebaseFirestore.instance;
+  FirebaseFirestore database;
 
-  FirestoreRepository();
+  FirestoreRepository(this.database);
 
   Future<String?> create(String collectionName, Map<String, dynamic> data) async {
     try {
