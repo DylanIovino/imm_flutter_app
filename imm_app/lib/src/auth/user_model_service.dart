@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 import 'package:imm_app/src/auth/authentication_service.dart';
 
-import 'package:imm_app/util/pair.dart';
-import 'package:imm_app/util/user_type.dart';
+import 'package:imm_app/src/util/pair.dart';
+import 'package:imm_app/src/util/user_type.dart';
 
 import 'package:imm_app/src/data/models/user.dart';
 
